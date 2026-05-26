@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kampanje</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background-color: #f0f0f0; }
+        tbody tr { cursor: pointer; }
+        tbody tr:hover { background-color: #eaf2ff; }
+        .btn { display: inline-block; margin-bottom: 16px; padding: 10px 20px; background: #2c7be5; color: white; text-decoration: none; border-radius: 4px; }
+        .back { background: #6c757d; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <a class="btn back" th:href="@{/}">← Nazad</a>
+    <a class="btn" th:href="@{/kampanje/nova}">+ Nova kampanja</a>
+
+    <h2>Kampanje</h2>
+
+    <p th:if="${#lists.isEmpty(kampanje)}">Nema kampanja u bazi.</p>
+
+    <table th:unless="${#lists.isEmpty(kampanje)}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Naziv</th>
+                <th>Opis</th>
+                <th>Datum početka</th>
+                <th>Datum kraja</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="k : ${kampanje}" th:onclick="|window.location='/kampanje/' + ${k.id_kampanja}|">
+                <td th:text="${k.id_kampanja}"></td>
+                <td th:text="${k.naziv}"></td>
+                <td th:text="${k.opis}"></td>
+                <td th:text="${k.datumPocetka}"></td>
+                <td th:text="${k.datumKraja}"></td>
+                <td th:text="${k.status}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

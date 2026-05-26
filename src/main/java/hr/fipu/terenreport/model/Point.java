@@ -1,5 +1,7 @@
 package hr.fipu.terenreport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,5 +35,26 @@ public class Point {
 
     @ManyToOne
     @JoinColumn(name = "id_kampanja")
+    @JsonIgnore
     private Kampanja kampanja;
+
+    @ManyToOne
+    @JoinColumn(name = "od_tocke_id")
+    @JsonIgnore
+    private Point odTocke;
+
+    @ManyToOne
+    @JoinColumn(name = "do_tocke_id")
+    @JsonIgnore
+    private Point doTocke;
+
+    @JsonProperty("odTockeId")
+    public Long getOdTockeId() {
+        return odTocke != null ? odTocke.getId_point() : null;
+    }
+
+    @JsonProperty("doTockeId")
+    public Long getDoTockeId() {
+        return doTocke != null ? doTocke.getId_point() : null;
+    }
 }

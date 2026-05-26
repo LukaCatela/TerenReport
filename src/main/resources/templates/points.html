@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Točke</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background-color: #f0f0f0; }
+        .btn { display: inline-block; margin-bottom: 16px; padding: 10px 20px; background: #2c7be5; color: white; text-decoration: none; border-radius: 4px; }
+        .back { background: #6c757d; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <a class="btn back" th:href="@{/}">← Nazad</a>
+    <a class="btn" th:href="@{/points/novi}">+ Nova točka</a>
+
+    <h2>Točke</h2>
+
+    <p th:if="${#lists.isEmpty(points)}">Nema točaka u bazi.</p>
+
+    <table th:unless="${#lists.isEmpty(points)}">
+        <thead>
+            <tr>
+                <th>Broj točke</th>
+                <th>Vrsta</th>
+                <th>E</th>
+                <th>N</th>
+                <th>h</th>
+                <th>Metoda</th>
+                <th>Točnost (m)</th>
+                <th>Datum mjerenja</th>
+                <th>Kampanja</th>
+                <th>Napomena</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${points}">
+                <td th:text="${p.brojTocke}"></td>
+                <td th:text="${p.vrsta}"></td>
+                <td th:text="${p.E}"></td>
+                <td th:text="${p.N}"></td>
+                <td th:text="${p.h}"></td>
+                <td th:text="${p.metodaMjerenja}"></td>
+                <td th:text="${p.tocnost}"></td>
+                <td th:text="${p.datumMjerenja}"></td>
+                <td th:text="${p.kampanja != null ? p.kampanja.naziv : '-'}"></td>
+                <td th:text="${p.napomena}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

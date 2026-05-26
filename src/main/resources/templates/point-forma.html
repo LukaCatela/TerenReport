@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova točka</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        form { max-width: 500px; }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+        button { margin-top: 20px; padding: 10px 24px; background: #2c7be5; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .back { display: inline-block; margin-bottom: 16px; color: #2c7be5; text-decoration: none; }
+        .section { margin-top: 20px; padding-top: 12px; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <a class="back" th:href="@{/points}">← Nazad</a>
+    <h2>Nova točka</h2>
+
+    <form th:action="@{/points/novi}" th:object="${point}" method="post">
+
+        <label>Broj točke</label>
+        <input type="text" th:field="*{brojTocke}" required />
+
+        <label>Vrsta točke</label>
+        <select th:field="*{vrsta}">
+            <option value="">-- Odaberi --</option>
+            <option th:each="v : ${vrste}" th:value="${v}" th:text="${v}"></option>
+        </select>
+
+        <label>E (easting, HTRS96/TM)</label>
+        <input type="number" step="0.001" th:field="*{E}" />
+
+        <label>N (northing, HTRS96/TM)</label>
+        <input type="number" step="0.001" th:field="*{N}" />
+
+        <label>h (nadmorska visina)</label>
+        <input type="number" step="0.001" th:field="*{h}" />
+
+        <label>Metoda mjerenja</label>
+        <input type="text" th:field="*{metodaMjerenja}" placeholder="GPS, totalna stanica..." />
+
+        <label>Točnost (m)</label>
+        <input type="number" step="0.001" th:field="*{tocnost}" />
+
+        <label>Datum mjerenja</label>
+        <input type="datetime-local" th:field="*{datumMjerenja}" />
+
+        <label>Napomena</label>
+        <textarea th:field="*{napomena}" rows="3"></textarea>
+
+        <div class="section">
+            <label>Kampanja</label>
+            <select name="kampanjaId">
+                <option value="">-- Bez kampanje --</option>
+                <option th:each="k : ${kampanje}"
+                        th:value="${k.id_kampanja}"
+                        th:text="${k.naziv}"></option>
+            </select>
+
+            <label>Od točke</label>
+            <select name="odTockeId">
+                <option value="">-- Nije povezana --</option>
+                <option th:each="p : ${svePoints}"
+                        th:value="${p.id_point}"
+                        th:text="${p.brojTocke}"></option>
+            </select>
+
+            <label>Do točke</label>
+            <select name="doTockeId">
+                <option value="">-- Nije povezana --</option>
+                <option th:each="p : ${svePoints}"
+                        th:value="${p.id_point}"
+                        th:text="${p.brojTocke}"></option>
+            </select>
+        </div>
+
+        <button type="submit">Spremi</button>
+    </form>
+</body>
+</html>

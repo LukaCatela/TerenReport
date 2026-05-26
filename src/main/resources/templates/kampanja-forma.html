@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova kampanja</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        form { max-width: 500px; }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+        button { margin-top: 20px; padding: 10px 24px; background: #2c7be5; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .back { display: inline-block; margin-bottom: 16px; color: #2c7be5; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <a class="back" th:href="@{/kampanje}">← Nazad</a>
+    <h2>Nova kampanja</h2>
+
+    <form th:action="@{/kampanje/nova}" th:object="${kampanja}" method="post">
+        <label>Naziv</label>
+        <input type="text" th:field="*{naziv}" required />
+
+        <label>Opis</label>
+        <textarea th:field="*{opis}" rows="3"></textarea>
+
+        <label>Datum početka</label>
+        <input type="date" th:field="*{datumPocetka}" />
+
+        <label>Datum kraja</label>
+        <input type="date" th:field="*{datumKraja}" />
+
+        <label>Status</label>
+        <input type="text" th:field="*{status}" placeholder="aktivna, završena..." />
+
+        <button type="submit">Spremi</button>
+    </form>
+</body>
+</html>
