@@ -1,4 +1,7 @@
 package hr.fipu.terenreport.repository;
 
-public class PointRepo {
+import hr.fipu.terenreport.model.Point;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PointRepo extends JpaRepository<Point, Long> {
 }
